@@ -1,12 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { AppConstants } from 'src/app/app.constant';
 
 @Pipe({
   name: 'formatCell',
 })
 export class FormatCellPipe implements PipeTransform {
 
-  constructor(private currencyPipe: CurrencyPipe) { }
+  constructor(private currencyPipe: CurrencyPipe, private datePipe: DatePipe) { }
 
   transform(value: any, format: string): any {
     if (value === undefined) {
@@ -28,7 +29,11 @@ export class FormatCellPipe implements PipeTransform {
     }
 
     if (format === 'currency') {
-      return this.currencyPipe.transform(value, 'USD', true);
+      return this.currencyPipe.transform(value, AppConstants.currencyFormat, true);
+    }
+
+    if (format === 'date') {
+      return this.datePipe.transform(value, AppConstants.dateFormat);
     }
 
     return value;

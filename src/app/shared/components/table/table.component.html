@@ -1,7 +1,10 @@
-<p-table [value]="records">
+<p-table [value]="records" (sortFunction)="customSort($event)" [customSort]="true">
     <ng-template pTemplate="header">
         <tr>
-            <th *ngFor="let col of columnMaps">{{col.header}}</th>
+            <th *ngFor="let col of columnMaps" [pSortableColumn]="col.primaryKey">
+                {{col.header}}
+                <p-sortIcon [field]="col.primaryKey" ></p-sortIcon>
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-data>

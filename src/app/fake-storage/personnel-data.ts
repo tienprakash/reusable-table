@@ -1,4 +1,4 @@
-import { IPersonnelModel } from '../user/models/personnel-model';
+import { IPersonnelModel } from '../astronets-module/models/personnel-model';
 
 export const Personnel: IPersonnelModel[] = [
     {

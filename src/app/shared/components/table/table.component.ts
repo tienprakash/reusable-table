@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input, OnDestroy, OnChanges } from '@angular/core';
 import { ColumnMap } from '../layout.model';
+import { SortEvent } from 'primeng/api/sortevent';
 
 @Component({
   selector: 'app-table',
@@ -33,52 +34,57 @@ export class TableComponent implements OnChanges {
     }
   }
 
-}
-
-/*
-  this.cols = Object.keys(this.records[0]).map((rec: string) => {
-    let name = ''
-    const rec_name = rec.split('_');
-    for (let rec of rec_name) {
-      name += rec[0].toUpperCase() + rec.slice(1) + ' ';
-    }
-    const sett = this.settings.filter((setting) => {
-      return setting.primaryKey === rec;
-    });
-    return {
-      primaryKey: rec,
-      header: name,
-      format: sett.length > 0 ? sett[0].format : 'default',
-      alternativeKeys: sett.length > 0 ? sett[0].alternativeKeys : undefined,
-    };
-  });
-
-*/
-
-/*
-  access(data: any, obj: any) {
-    if (data[obj.primaryKey] || !obj.alternativeKeys) {
-      return obj.primaryKey;
-    }
-
-    if (obj.alternativeKeys.length > 0) {
-      for (let key of obj.alternativeKeys) {
-        if (data[key]) {
-          return key;
+  customSort(event: SortEvent) {
+    const searchField = this.columnMaps.filter((column) => column.primaryKey === event.field);
+    const format = searchField[0].format;
+    if (format === 'date') {
+      event.data.sort((data1, data2) => {
+        const value1 = new Date(data1[event.field]);
+        const value2 = new Date(data2[event.field]);
+        if (event.order === 1) {
+          if (value1 < value2) {
+            return -1;
+          }
+        } else {
+          if (value1 > value2) {
+            return -1;
+          }
         }
-      }
-    }
-    return obj.primaryKey;
-  }
-*/
+      });
+    } else if (format === 'currency') {
+      event.data.sort((data1, data2) => {
+        const value1 = data1[event.field] || 0;
+        const value2 = data2[event.field] || 0;
+        if (event.order === 1) {
+          if (value1 < value2) {
+            return -1;
+          }
+        } else {
+          if (value1 > value2) {
+            return -1;
+          }
+        }
+      });
+    } else {
+      event.data.sort((data1, data2) => {
+        const value1 = data1[event.field];
+        const value2 = data2[event.field];
+        let result = null;
 
-/*
-  for (let record of this.records) {
-    const recProperties = Object.keys(record);
-    for (let key of recProperties) {
-      if (keys[key] === undefined) {
-        keys[key] = key;
-      }
+        if (value1 == null && value2 != null) {
+          result = -1;
+        } else if (value1 != null && value2 == null) {
+          result = 1;
+        } else if (value1 == null && value2 == null) {
+          result = 0;
+        } else if (typeof value1 === 'string' && typeof value2 === 'string') {
+          result = value1.localeCompare(value2);
+        } else {
+          result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+        }
+        return (event.order * result);
+      });
     }
   }
-*/
+
+}

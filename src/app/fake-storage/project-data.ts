@@ -1,44 +1,44 @@
-import { IProjectModel } from '../user/models/project-model';
+import { IProjectModel } from '../projects-module/models/project-model';
 
 export const Projects: IProjectModel[] = [
     {
         id: 1,
         name: 'Mercury',
         cost: 277000000,
-        first_flight: 'September 9, 1959',
+        first_flight: '9/17/2016',
         status: 'Complete',
     },
     {
         id: 2,
         name: 'Gemini',
         cost: 1300000000,
-        first_flight: 'April 8, 1964',
+        first_flight: '9/15/2016',
         status: 'Complete',
     },
     {
         id: 3,
         name: 'Apollo',
         cost: 25400000000,
-        first_flight: 'February 26, 1966',
+        first_flight: '4/17/2016',
         status: 'Complete',
     },
     {
         id: 4,
-        name: 'Skylab',
-        launch: 'May 14, 1973',
+        full_name: 'Skylab',
+        first_flight: '5/16/2016',
         status: 'Complete',
     },
     {
         id: 5,
-        name: 'Apollo-Soyuz',
-        launch: 'July 15, 1975',
+        full_name: 'Apollo-Soyuz',
+        first_flight: '5/10/2016',
         status: 'Complete',
     },
     {
         id: 6,
         name: 'Space Shuttle',
-        total_cost: 196000000000,
-        first_flight: 'August 12, 1977',
+        cost: 196000000000,
+        first_flight: '8/27/2016',
         status: 'Complete'
     },
 ];

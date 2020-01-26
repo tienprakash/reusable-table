@@ -6,7 +6,7 @@ import { PrimeNGModule } from '../../primeng';
 import { FormatCellPipe } from '../../pipes/format-cell.pipe';
 import { StyleCellDirective } from '../../directives/style-cell.directive';
 import { CurrencyPipe } from '@angular/common';
-import { TestMock } from '../../../user/test-mock/test-mock';
+import { TestMock } from '../../../astronets-module/test-mock/test-mock';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -48,13 +48,7 @@ describe('TableComponent', () => {
 
   it('should', () => {
     component.settings = null;
-    component.records = mockData.projects;
-    component.ngOnChanges();
-  });
-
-  it('should sdf', () => {
-    component.settings = settings;
-    component.records = mockData.projects;
+    component.records = mockData.getPersonnel;
     component.ngOnChanges();
   });
 
